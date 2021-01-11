@@ -15,22 +15,38 @@ class Weather(TestCase):
         self.ep_path = '/data/cityinfo'
         self.client = HttpClient()
 
-    @allure.story('Test of ShenZhen')
-    def test_1(self):
-        city_code = '101280601'
-        exp_city = '深圳'
+    @allure.story('Test of HangZhou')
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_weather_hangzhou(self):
+        city_code = '101210101'
+        exp_city = '杭州'
         self._test(city_code, exp_city)
 
-    @allure.story('Test of BeiJing')
-    def test_2(self):
-        city_code = '101010100'
-        exp_city = '北京'
+    @allure.story('Test of FuYang')
+    @allure.severity(allure.severity_level.MINOR)
+    def test_weather_fuyang(self):
+        city_code = '101220801'
+        exp_city = '阜阳'
+        self._test(city_code, exp_city)
+
+    @allure.story('Test of NingBo')
+    def test_weather_ningbo(self):
+        city_code = '101210401'
+        exp_city = '宁波'
         self._test(city_code, exp_city)
 
     @allure.story('Test of ShangHai')
-    def test_3(self):
+    @allure.severity(allure.severity_level.BLOCKER)
+    def test_weather_shanghai(self):
         city_code = '101020100'
         exp_city = '上海'
+        self._test(city_code, exp_city)
+
+    @allure.story('Test of GuiYang')
+    @allure.severity(allure.severity_level.TRIVIAL)
+    def test_weather_guiyang(self):
+        city_code = '101260101'
+        exp_city = '贵阳'
         self._test(city_code, exp_city)
 
     def _test(self, city_code, exp_city):
@@ -38,4 +54,5 @@ class Weather(TestCase):
         response = self.client.Get(url=url)
         act_city = response.json()['weatherinfo']['city']
         print(f'Expect city = {exp_city}, while actual city = {act_city}')
-        self.assertEqual(exp_city, act_city, f'Expect city = {exp_city}, while actual city = {act_city}')
+        # self.assertEqual(exp_city, act_city, f'Expect city = {exp_city}, while actual city = {act_city}')
+        self.assertEqual(exp_city, act_city)
